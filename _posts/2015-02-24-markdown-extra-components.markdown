@@ -1,7 +1,7 @@
 ---
 title: "Markdown Extra Components"
 layout: post
-date: 2016-02-24 22:48
+date: 2019-05-02 
 image: /assets/images/markdown.jpg
 headerImage: false
 tag:
@@ -9,13 +9,16 @@ tag:
 - components
 - extra
 category: blog
-author: jamesfoster
+author: Milind 
 description: Markdown summary with different options
 ---
 
 ## Summary:
 
-You can pick as item to see how to apply in markdown.
+Docker Networking
+
+I was understanding networking in docker, and I found it is difficult to understand very easily. Some articles were not well explained and some of them were on a high pitch. So as an initial effort, I am trying to explain how docker is wired internally with the local host. 
+The server on which docker containers are running is called as Docker host. When any container is running on a docker host, an embedded application running inside may need some data from outside. To get data inside a container some networking is needed. This networking is provided by docker. The model designed by docker is called Container Networking Model. In this model, the idea is, open a bridge to underline Linux network and start getting data from it. This CNM can be implemented in several ways. Out of that let's try to understand bridge (docker0). 
 
 #### Especial Elements
 - [Evidence](#evidence)
