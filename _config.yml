@@ -15,9 +15,9 @@ about-picture: assets/images/me.jpg
 # and specify source (external or local).
 resume: true
 resume-external: false
-url : https://dmilind.github.io/assets/resume/latestme.pdf
+resume-url : https://dmilind.github.io/assets/resume/latestme.pdf
 
-#url: https://dmilind.github.io
+url: https://dmilind.github.io
 # your url: http://USERNAME.github.io
 
 permalink: /:title/
