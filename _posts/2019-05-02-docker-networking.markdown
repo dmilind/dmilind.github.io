@@ -20,13 +20,6 @@ Docker Networking
 I was understanding networking in docker, and I found it is difficult to understand very easily. Some articles were not well explained and some of them were on a high pitch. So as an initial effort, I am trying to explain how docker is wired internally with the local host. 
 The server on which docker containers are running is called as Docker host. When any container is running on a docker host, an embedded application running inside may need some data from outside. To get data inside a container some networking is needed. This networking is provided by docker. The model designed by docker is called Container Networking Model. In this model, the idea is, open a bridge to underline Linux network and start getting data from it. This CNM can be implemented in several ways. Out of that let's try to understand bridge (docker0). 
 
-<div class="side-by-side">
-    <div class="toleft">
-        <img class="image" src="https://koppl.in/indigo/assets/images/profile.jpg" alt="Alt Text">
-        <figcaption class="caption"> </figcaption>
-    </div>
-</div>
-
 Bridge  
          When docker is installed freshly and docker daemon is started, this network bridge is automatically created and name it is as docker0. This bridge is then mapped into underlines host’s IP routing table. 
 
