@@ -30,17 +30,20 @@ $ docker network ls
 ```
 
 * Bridge  
-         When docker is installed freshly and docker daemon is started, this network bridge is automatically created and name it is as docker0. This bridge is then mapped into underlines host’s IP routing table. 
-<img class="image" src="https://dmilind.github.io/assets/images/bridge.png" alt="Alt Text">
+         When docker is installed freshly and docker daemon is started, this network bridge is automatically created and name it is as docker0. This bridge is then mapped into underlines host’s IP routing table.
+
+<img class="image" src="https://dmilind.github.io/assets/images/bridge.png" alt="Docker Bridge">
+
 * Once the mapping is done, this docker bridge is able to access the data over the underline host’s network. 
 * Now let's try to understand this by using Docker. On any docker host run below command.
 
 This command shows all available docker networks in docker host. Network ID is phrased which is internally used by the docker. Name is the kind of network available for docker, Driver is the name of the driver which is used to create a network. And the scope is sort of boundary for that network. 
 
-## Network Scope: 
+## Network Scope:
 
-          Network scope bounds the data transaction. This scope would be either local or global. When the scope is local that means all network connections are happening on a single docker host internally. This is good for a single container which does not want to reach outside of the local docker host. 
-In a distributed microservice architecture, one service is running in container want to fetch some data from another container, in this case networking scope need to be global. The global scope can be attained in swarm mode, where overlay network will be used. For now, lets now go into other than local scope and bridge network.
+Network scope bounds the data transaction. This scope would be either local or global. When the scope is local that means all network connections are happening on a single docker host internally. This is good for a single container which does not want to reach outside of the local docker host. 
+
+In a distributed micro-service architecture, one service is running in container want to fetch some data from another container, in this case networking scope need to be global. The global scope can be attained in swarm mode, where overlay network will be used. For now, lets now go into other than local scope and bridge network.
 Until now, the docker bridge is made available since we started the docker engine. When the docker bridge is created, the subnet range is assigned to this bridge internally. This somewhat defaults behavior of docker. Let's confirm what subnet has been assigned to docker bridge. Run below command and check for IPAM block which is highlighted. 
 
 ```
@@ -87,19 +90,20 @@ docker@Docker:~$ docker network inspect bridge
 
 ## What is IPAM: 
 
-           IPAM means IP Address Management. This is a tool which is used to track the IP addresses. Under Config in IPAM block, Subnet is allocated to 172.17.0.0/16. That means this docker bridge can house IP addresses in the range of 172.17.0.1 - 172.17.255.254. Under that, you can see the IP address is assigned for the Gateway. Here Gateway is the router for docker0. So docker0 ’s  IP address is the first IP which is 172.19.0.1. 
+IPAM means IP Address Management. This is a tool which is used to track the IP addresses. Under Config in IPAM block, Subnet is allocated to 172.17.0.0/16. That means this docker bridge can house IP addresses in the range of 172.17.0.1 - 172.17.255.254. Under that, you can see the IP address is assigned for the Gateway. Here Gateway is the router for docker0. So docker0 ’s  IP address is the first IP which is 172.19.0.1. 
+
 Any container spun up in this bridge will start getting an IP address from 172.19.0.2.  By default container is allowed to have egress traffic is allowed and ingress traffic is blocked. Egress means outgoing traffic from the container and ingress means incoming traffic to the container. To maintain this behavior, Each container gets its own virtual Ethernet(veth) connection to the bridge. You can understand this from the below figure. 
 
 Consider the below image:
 
-<img class="image" src="https://dmilind.github.io/assets/images/ipma.png" alt="Alt Text">
+<img class="image" src="https://dmilind.github.io/assets/images/ipam.png" alt="ipam">
 
 I think this is clear that how docker container will be wired to get data through Linux bridge for docker (docker0). In the bottom line, when the connection comes from the outside host. It goes to eth0, then it goes to routing table which routed the traffic to docker bridge (docker0) and then routed to veth of the container. And lastly, container finds it. 
 Now let's play around the network and try to make a connection over the network. The network can be custom created also. Why do we need a custom network? This is purely dependent on the application architecture. Some time services wanted to run in custom network bridge so that containers are isolated from the default network bridge. 
 
-```
 Below command will create a custom network bridge named sample-test. 
 
+```
 $docker network create --driver bridge sample-test
 docker@Docker:/mnt/sda1/var/lib/docker$ docker network ls
 
@@ -403,10 +407,10 @@ cc832f453824            host                       host                      loc
 ```
 
 Different Container Network Model implementations.
-## Host :         
-           If you want to use underline host’s network bridge, you can attach your container to this network bridge. But this is highly insecure.  
-## Null :         
+* Host:         
+        If you want to use underline host’s network bridge, you can attach your container to this network bridge. But this is highly insecure.  
+* Null:         
           Some time if you want to isolate your container from any data traffic, then attach your container to this network bridge. 
-## Overlay :           
+* Overlay:           
           This network bridge is used when the scope is global. This will be used in docker swarm where the container will talk to each other over network pipeline. I will try to explain this in another blog. 
 
