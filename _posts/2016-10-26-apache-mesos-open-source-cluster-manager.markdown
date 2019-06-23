@@ -1,5 +1,5 @@
 ---
-title: "Apache Mesos: Open source Cluster Manager"
+title: "Apache Mesos Open source Cluster Manager"
 layout: post
 date: 2016-10-26
 image: /assets/images/markdown.jpg
@@ -9,25 +9,27 @@ tag:
 - cluster manager
 category: blog
 author: Milind 
-description: Apache Mesos: Open source Cluster Manager
+description: Apache Mesos Open source Cluster Manager
 ---
 
 ## Summary:
 
 Apache mesos was the project in University of California , Berkeley. In that project team came up with a solution to mange the cluster. Now what is cluster ? This could be the basic question but let me answer you to understand whole picture of Apache mesos.
 
-What is Cluster ?
+## What is Cluster ?
+
 When we are talking about the data-center , then cluster means a group of servers and other resources that act like a single system to perform the operations. For an example one application can be run on 3 servers and also other tools will be required to make it happen. so these are all resources and a single entity of these resources is called cluster.
 
 To make operation efficient on this cluster, we need a tool who will act as a manager so that tool is called Apache mesos. Mesos provides facilities of application scheduling, scaling , and fault-tolerance. Mesos have following different components.
 
-Mesos Master Daemon :
-This is a program which runs on master node. And the work of mesos master is to manage agent nodes.(agent node means slave nodes but slave is depreciated )
-Mesos Agent Daemon:
-This is a program runs on the agent node and runs tasks that belongs to framework
+* Mesos Master Daemon :
+    This is a program which runs on master node. And the work of mesos master is to manage agent nodes.(agent node means slave nodes but slave is depreciated )
 
-Framework:
-Consider framework is an application for mesos.
+* Mesos Agent Daemon:
+    This is a program runs on the agent node and runs tasks that belongs to framework
+
+* Framework:
+    Consider framework is an application for mesos.
 
 Apache Zookeeper:
 This is a software which is used to co-ordinate a master node.
