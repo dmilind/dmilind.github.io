@@ -90,8 +90,10 @@ Once this command get through , your jenkins application is running on http://19
 
 Note:
 Initial log in to jenkins would be:
+
 Username : admin
-Password: jenkins 
-Vagrant box Link :
-<a href='https://app.vagrantup.com/milinddhoke/boxes/jenkins'>
+
+Password: jenkins
+ 
+Vagrant box Link: <a href='https://app.vagrantup.com/milinddhoke/boxes/jenkins'>
 
