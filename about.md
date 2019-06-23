@@ -41,6 +41,6 @@ I would love to keep optimism alive within me and be surrounded by optimistic pe
 <h2>Blogs</h2>
 
 <ul>
-    <li> <a href='https://milinddhokeblog.wordpress.com/'> </li>
-	<li> <a href='https://milinddhokeblog.blogspot.com/'> </li>
+    <li> https://milinddhokeblog.wordpress.com </li>
+	<li> https://milinddhokeblog.blogspot.com </li>
 </ul>
