@@ -112,65 +112,299 @@ cc832f453824        host                host          local
 By default the scope is local. Means all container within this network will talk withing docker host. 
 Let's see what subnet and gateway are assigned to this bridge network. 
 
-## Fig 06 
+```
+docker@Docker:/mnt/sda1/var/lib/docker$ docker network inspect sample-net
+[
+    {
+        "Name": "sample-net",
+        "Id": "968da3ccc8a398a833879e071707bcced8b1804680c0a99ecbaca9aad9d2d193",
+        "Created": "2019-05-01T19:47:40.070354154Z",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default"
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.19.0.0/16",
+                    "Gateway": "172.19.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Containers": {},
+        "Options": {},
+        "Labels": {
+    }
+]
+```
 
 An assigned subnet is 172.19.0.0/16 and of course, gateway address would be 172.19.0.1.  A custom subnet can also be assigned to this network bridge bypassing --subnet flag in docker network create command also passing the value for that subnet. E.g 
 
-## fig 07 
+```
+docker network create --driver bridge --subnet “10.10.0.0/16” \ sample-net2
+```
 
 As we said all container will get IP’s from this range, let's demo it. Make sure while spinning any container “--network” flag is passed on docker run command. If this is not specified then as per docker’s default behavior all container will get spun in default network which is docker0 
 Let's run-first centos container 
 
-## fig 08 
+```
+docker@Docker:/mnt/sda1/var/lib/docker$ docker container run -it --name C1 --network sample-net centos /bin/sh
+```
 
 Now you are into centos container since this is the first container spun up in sample-net network then IP address should be in the range of 172.19.0.0
 Inside the container run command: 
 
-## fig 09 
+```
+sh-4.2# cat /etc/hosts
+
+127.0.0.1 localhost
+
+::1 localhost ip6-localhost ip6-loopback
+
+fe00::0 ip6-localnet
+
+ff00::0 ip6-mcastprefix
+
+ff02::1 ip6-allnodes
+
+ff02::2 ip6-allrouters
+
+172.19.0.2 459083dfd765
+```
 
 As expected right IP address has been assigned to the container. Now if you inspect sample-net network bridge, then you can see this container is mapped under sample-net network, 
 
-## fig 10 
+```
+docker@Docker:~$ docker network inspect sample-net
+
+[
+
+    {
+
+        "Name": "sample-net",
+
+        "Id": "968da3ccc8a398a833879e071707bcced8b1804680c0a99ecbaca9aad9d2d193",
+
+        "Created": "2019-05-01T19:47:40.070354154Z",
+
+        "Scope": "local",
+
+        "Driver": "bridge",
+
+        "EnableIPv6": false,
+
+        "IPAM": {
+
+            "Driver": "default",
+
+            "Options": {},
+
+            "Config": [
+
+                {
+
+                    "Subnet": "172.19.0.0/16",
+
+                    "Gateway": "172.19.0.1"
+
+                }
+
+            ]
+
+        },
+
+        "Internal": false,
+
+        "Attachable": false,
+
+        "Ingress": false,
+
+        "ConfigFrom": {
+
+            "Network": ""
+
+        },
+
+        "ConfigOnly": false,
+
+        "Containers": {
+
+            "459083dfd76555cd238bb1cbd8f3bda235f662f7937427cea0fbb23e271c6daa": {
+
+                "Name": "C1",
+
+                "EndpointID": "26197f5319144702dc23aed6b6fa0dd1dd997cd8a5d033d62105d273de41d534",
+
+                "MacAddress": "02:42:ac:13:00:02",
+
+                "IPv4Address": "172.19.0.2/16",
+
+                "IPv6Address": ""
+
+            }
+
+        },
+
+        "Options": {},
+
+        "Labels": {}
+
+    }
+
+]
+```
 
 Let's spin another container in same network bridge: 
 
-## fig 11 
+```
+docker container run -it --name C2 --network sample-net \ centos /bin/sh 
+
+sh-4.2# cat /etc/hosts
+
+127.0.0.1 localhost
+
+::1 localhost ip6-localhost ip6-loopback
+
+fe00::0 ip6-localnet
+
+ff00::0 ip6-mcastprefix
+
+ff02::1 ip6-allnodes
+
+ff02::2 ip6-allrouters
+
+172.19.0.3 ca4f195c6697
+```
 
 All IPs are allocated nicely. Now let's see how connection can be made between 2 containers under the same bridge network sample-net. Log in to both containers and try to ping each other. 
 
-## fig 12 
+```
+From C1:
+
+sh-4.2# ping C2
+
+PING C2 (172.19.0.3) 56(84) bytes of data.
+
+64 bytes from C2.sample-net (172.19.0.3): icmp_seq=1 ttl=64 time=0.042 ms
+
+64 bytes from C2.sample-net (172.19.0.3): icmp_seq=2 ttl=64 time=0.053 ms
+
+64 bytes from C2.sample-net (172.19.0.3): icmp_seq=3 ttl=64 time=0.081 ms
+
+^C
+
+--- C2 ping statistics ---
+
+3 packets transmitted, 3 received, 0% packet loss, time 2033ms
+
+rtt min/avg/max/mdev = 0.042/0.058/0.081/0.018 ms 
+From C2: 
+sh-4.2# ping C1
+PING C1 (172.19.0.2) 56(84) bytes of data.
+64 bytes from C1.sample-net (172.19.0.2): icmp_seq=1 ttl=64 time=0.063 ms
+64 bytes from C1.sample-net (172.19.0.2): icmp_seq=2 ttl=64 time=0.058 ms
+64 bytes from C1.sample-net (172.19.0.2): icmp_seq=3 ttl=64 time=0.064 ms
+64 bytes from C1.sample-net (172.19.0.2): icmp_seq=4 ttl=64 time=0.147 ms
+64 bytes from C1.sample-net (172.19.0.2): icmp_seq=5 ttl=64 time=0.057 ms
+64 bytes from C1.sample-net (172.19.0.2): icmp_seq=6 ttl=64 time=0.057 ms
+^C
+--- C1 ping statistics ---
+6 packets transmitted, 6 received, 0% packet loss, time 5062ms
+rtt min/avg/max/mdev = 0.057/0.074/0.147/0.033 ms
+```
 The connection is successful: 
 How these connections are getting established?When C1 is trying to ping C2, C1 sends packets to bridge network (sample-net), since sample-net has routing information about C2, so there is no problem of sending packets to C2. The same thing is for C2. 
 Now try to spin a container in default docker network bridge (docker0).
 
-## fig 13
+```
+docker@Docker:~$ docker container run -it --name C3 centos /bin/sh sh-4.2# cat /etc/hosts
+
+127.0.0.1 localhost
+
+::1 localhost ip6-localhost ip6-loopback
+
+fe00::0 ip6-localnet
+
+ff00::0 ip6-mcastprefix
+
+ff02::1 ip6-allnodes
+
+ff02::2 ip6-allrouters
+
+172.17.0.2 d141687fb10d
+```
 
 Also, this container is assigned IP from docker0 range. 
 Now let's try to ping C3 from C1 and vice versa: 
 
-## fig 14 
+```
+sh-4.2# ping C4
+ping: C4: Name or service not known
+
+Okay: service now is known, let's try with IP 
+
+
+sh-4.2# ping 172.17.0.2
+
+PING 172.17.0.2 (172.17.0.2) 56(84) bytes of data.
+
+^C
+
+--- 172.17.0.2 ping statistics ---
+
+7 packets transmitted, 0 received, 100% packet loss, time 6127ms 
+```
 
 Hmm, so the connection is not successful even though both containers are running on the same host. I am sure the same output will be obtained from other hosts while pinging C3.This is the beauty of Linux namespace concept. 
 But this might be the problem when spinning containers in different network bridges. Some time one container from one network bridge wants to connect to another container from other network bridge. In such cases, a subset of network bridge should be defined. 
 For example, Create a new network bridge and call it as sample-net2
 Now spin out the first container 
 
-## fig 15 
+```
+docker@Docker:/mnt/sda1/var/lib/docker$ docker container run -it --name C1-sample-net sample-net centos /bin/sh 
+``` 
 This container is attached to one network sample-net 
 Time to spin the new container. This container should be connected to both networks sample-net as well as sample-net2 
 
-## fig 16 
+```
+docker@Docker:~$ docker run -it --name C2-sample-net2 --net sample-net2 --net sample-net centos /bin/sh
+``` 
 
 Now try to ping each other which is a success. 
 Cool …. 
 What are other network bridges
 
-## fig 17 
+```
+docker@Docker:~$ docker network ls
+NETWORK ID          NAME                DRIVER              SCOPE
+
+634204d08917           bridge                   bridge                   local
+
+e227083495f1            docker_gwbridge bridge                   local
+
+cc832f453824            host                       host                      local
+
+24a7c93c8d9d           none                      null                       local
+
+968da3ccc8a3           sample-net             bridge                   local
+
+457184e60e78          sample-net2           bridge                   local
+
+```
+
 Different Container Network Model implementations.
-Host :         
+## Host :         
            If you want to use underline host’s network bridge, you can attach your container to this network bridge. But this is highly insecure.  
-Null :         
+## Null :         
           Some time if you want to isolate your container from any data traffic, then attach your container to this network bridge. 
-Overlay :           
+## Overlay :           
           This network bridge is used when the scope is global. This will be used in docker swarm where the container will talk to each other over network pipeline. I will try to explain this in another blog. 
 
