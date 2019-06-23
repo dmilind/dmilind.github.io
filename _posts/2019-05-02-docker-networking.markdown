@@ -31,6 +31,7 @@ $ docker network ls
 
 * Bridge  
          When docker is installed freshly and docker daemon is started, this network bridge is automatically created and name it is as docker0. This bridge is then mapped into underlines host’s IP routing table. 
+<img class="image" src="https://dmilind.github.io/assets/images/bridge.png" alt="Alt Text">
 * Once the mapping is done, this docker bridge is able to access the data over the underline host’s network. 
 * Now let's try to understand this by using Docker. On any docker host run below command.
 
