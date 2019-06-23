@@ -21,7 +21,7 @@ clean software promotion from development to production environment, debugging i
 	<li> Portable Dev Environment [ Vagrant ] </li>
 	<li> Identical Machine Producer [ Packer ] </li>
 	<li> Deep Analytical Thinking </li>
-]</ul>
+</ul>
 
 <p> Well that was my professional background. Personally I am chill guy.Actually I love to chat with my friends on diverse topics. I hail from Maharastra, India. I did my basic education 
 and engineering from Amravati University. To be frank I was not a technical student rather medical one, but with designed patterned I entered into computer engineering degree program.
