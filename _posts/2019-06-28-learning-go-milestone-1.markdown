@@ -130,14 +130,14 @@ In Go , data types comes under four categories.
   * string
   * float64
 * Aggregate Data Types
- * array
- * struct
+  * array
+  * struct
 * Reference Data Types  
- * pointer
- * slice
- * map
- * function
- * channel
+  * pointer
+  * slice
+  * map
+  * function
+  * channel
 * Interface Data Type
 
 Once variable is assigned with a specific data type, that variable can not be assigned to different data type. Since go is a strongly typed language, data type conversion should be done before.
