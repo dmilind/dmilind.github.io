@@ -164,4 +164,6 @@ c := float64(a) + b // result would be 7.5
 ```
 So type conversion can be destructive also. This should be used carefully.
 
-lets meet in next blog now.......
+---
+
+                                                          lets meet in next blog now . . .
