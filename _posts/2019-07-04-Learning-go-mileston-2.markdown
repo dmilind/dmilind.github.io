@@ -289,3 +289,169 @@ func main() {
 }
 ```
 <a href='https://play.golang.org/p/T-hv1JBbdZl'>Example on Struct: Go Playground </a>
+
+## Working With JSON
+
+Well this is not a part of data structure. JSON (java script object notation) is a known data format as shown below.
+```
+{
+	"key": "value",
+	"key": "value"
+}
+```
+JSON is widely used for sending and recieving a data to and from the web application back end.
+json can be used in go. Why do we need it ?
+lets say, you have `struct` which is responsible for storing a commulative data of a Book. Now this data should be passed to an application but that application takes a data in json format. Now there is a need to convert this data into a acceptable json format. Or this might be a vice versa.
+
+For doing all action on json , go has a package which simplifies tasks for us. `encoding/json` package can be used. Mostly `fun marshal()` and `func unmarshal()` is used to convert data into json and convert json data into struct respectively.
+
+#### Converting Struct into JSON: marshal
+Example:
+
+Goal is to provide a data of book in json format. Books data contains, book name, author name, book id, release date. since this data is in different format to we need to use struct.
+
+```
+// converting data into json format
+
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type Book struct {
+	Name     string
+	Author   string
+	Id       int
+	Released string
+}
+
+func main() {
+	// initialized an object from Book struct
+	var Golang Book
+	Golang = Book{
+		Name:     "Understaing Go",
+		Author:   "Unkown",
+		Id:       12342,
+		Released: "2019-12-12",
+	}
+
+	// check data is referenced correctly to Golang
+
+	fmt.Println(Golang) // output: {Understaing Go Unkown 12342 2019-12-12} // correct output
+
+	// objective 2: Need to convert this data into json format,for that "encoding/json" package is used
+
+	Jdata, err := json.Marshal(Golang)
+	if err != nil {
+		fmt.Println("Something went wrong while marshaling json data")
+	}
+
+	fmt.Println(Jdata)
+
+	// output
+	//[123 34 78 97 109 101 34 58 34 85 110 100 101 114 115 116 97 105 110 103 32 71 111 34 44 34 65 117 116 104 111 114 34 58 34 85 110 107 111 119 110 34 44 34 73 100 34 58 49 50 51 52 50 44 34 82 101 108 101 97 115 101 100 34 58 34 50 48 49 57 45 49 50 45 49 50 34 125]
+
+	// well this data is in byte format , we need to convert this data into actual json data
+	fmt.Println(string(Jdata))
+
+	// output
+	// {"Name":"Understaing Go","Author":"Unkown","Id":12342,"Released":"2019-12-12"}
+	// again this data is not good in reading, lets get a clean version for it.
+
+	JdataIndented, err := json.MarshalIndent(Golang, " ", " ")
+	if err != nil {
+		fmt.Println("Something went wrong while indenting json data")
+	}
+
+	fmt.Println(string(JdataIndented))
+
+	// output
+	/*
+		{
+	  	  "Name": "Understaing Go",
+	  	  "Author": "Unkown",
+	   	  "Id": 12342,
+	  	  "Released": "2019-12-12"
+	 	}
+
+	*/
+
+}
+```
+<a href='https://play.golang.org/p/-Shq81K3r0p'><b>Converting Struct Into Json:Go Playground</b></a>
+
+<b>Real time use of this json:</b>
+
+If you are thinking to write custom ansible module in go, then core ansible always takes response in json format.That being said, your go's output must be converted into json format. Here `func marshal()` can be used.
+
+> golang is highly documented, go doc command is useful in every step. For example, `go doc json marshl` gived below documentation.  
+```
+mdhoke＠dmilind.github.io[master !] ➤ go doc json Marshal
+package json // import "encoding/json"
+func Marshal(v interface{}) ([]byte, error)
+    Marshal returns the JSON encoding of v.
+    Marshal traverses the value v recursively. If an encountered value
+    implements the Marshaler interface and is not a nil pointer, Marshal calls
+    its MarshalJSON method to produce JSON. If no MarshalJSON method is present
+    but the value implements encoding.TextMarshaler instead, Marshal calls its
+    MarshalText method and encodes the result as a JSON string. The nil pointer
+    exception is not strictly necessary but mimics a similar, necessary
+    exception in the behavior of UnmarshalJSON.
+```
+#### Converting JSON into Struct: unmarshal
+
+`func unmarshal()` is used to convert json formatted data into struct data structure.
+>```
+mdhoke＠dmilind.github.io[master !] ➤ go doc json Unmarshal
+package json // import "encoding/json"
+func Unmarshal(data []byte, v interface{}) error
+    Unmarshal parses the JSON-encoded data and stores the result in the value
+    pointed to by v. If v is nil or not a pointer, Unmarshal returns an
+    InvalidUnmarshalError.
+```
+
+Example:
+```
+// converting json into struct
+// using func Unmarshal(data []byte, v interface{}) error
+/*
+input data is in slice of byte format, and return would be an error
+we will try to fetch sample json data from (https://api.github.com/search/issues)
+*/
+
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+)
+
+type Book struct {
+	Name     string `json:"Name"`
+	Author   string `json:"Author"`
+	Id       int    `json:"Id"`
+	Released string `json:"Released"`
+}
+
+func main() {
+
+	// storing a json data into jstring
+	jstring := `{"Name": "Book-On-Golang", "Author": "Mr-Unknown", "Id": 123, "Released": "2019-12-12"}`
+
+	//fmt.Println(jstring) // data got into json format
+
+	// output:
+	// {"Name": "Book On Golang", "Author": "Mr Unknown", "Id": 123, "Released": "2019-12-12"}
+
+	//
+	var b Book
+	err := json.Unmarshal([]byte(jstring), &b)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(b)
+}
+```
+<a href='https://play.golang.org/p/VXzHUOZpLgr'><b>Converting Json Into Struct:Go Playground</b></a>
