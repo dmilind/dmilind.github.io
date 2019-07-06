@@ -9,7 +9,7 @@ description: Something about me!
 # better with square images
 external-image: false
 picture: assets/images/profileOne.jpeg
-about-picture: assets/images/me.jpg
+about-picture: assets/images/seagul.jpg
 
 # If you want to include your resume, set to true
 # and specify source (external or local).
