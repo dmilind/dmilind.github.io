@@ -28,7 +28,7 @@ An array is aggregate data type which encapsulates <u><b>fixed length of same da
 
 Syntax to declare an Array
 
-```
+```go
 var item [10]int    // item is an array where 10 elements will be stored in a consecutive   memory location.  
 
 var item [10]int = [10]int{1,2,3,4,5,6,7,8,9,10}
@@ -36,11 +36,11 @@ var item [10]int = [10]int{1,2,3,4,5,6,7,8,9,10}
 
 Sometime we dont know how many element will be initialized, in that case we can use <b>ellipsis `...` </b>
 
-```
+```go
 var item [...]int = [...]int{1,2,3}  // ellipsis appeared in the place of length.
 ```
 #### Coding Fun: Implementing An Array
-```
+```go
 /*
 Go program to get all months.
 */
@@ -63,12 +63,12 @@ func main() {
 
 Slices is modern data type form of array. Array has some limitations on elements expansion and shrinking.Elements from the slices can be shrink and expanded as per need.Actually slices are nothing but an array inside.
 Slice can be declared as
-```
+```go
 var sliceName []int // slice containing all integers.
 sliceName := []int{1,2,3,4}
 ```
 When slice is initialized, under the hood an array is created and from that array slice will be referenced.`make()` function can be used to declare a slice.
-```
+```go
 sliceName := make([]int,10)
 ```
 > NOTE: make() function allocates and initiliazes an object of type slice, map or chan only.
@@ -77,7 +77,7 @@ Example:
 
 Lets take an example from array, creating a slice of all months.
 
-```
+```go
 // slices
 package main
 
@@ -118,7 +118,7 @@ func main() {
 
 ## Builtin <i> append </i> Function
 When slice is initialized , we might want to add new element to this slice. This addition can be done by using a builtin append function. Once appened function called , it takes arguments which can be added to the existing slice.
-```
+```go
 Syntax:
 
 sliceName := append(sliceName, element) // element will be appended to sliceName
@@ -129,7 +129,7 @@ You can checkout the above example.
 
 ## Maps
 We have seen array and slices, which are a linear one dimensional data structure in go.They can be uses as we get data in linear fashio. What if the data is in a hash or dictionary format, like
-```
+```go
 key1: value1
 key2: value2
 ```
@@ -142,7 +142,7 @@ maps stores the data in key value format. It is unordered collection of key valu
 * Key and Value type may be identical but not necessary.  
 
 #### Declaring/Initializing a map
-```
+```go
 var variableName map[key_type]value_type
 var mapItem map[string]int  // asking to declare a map (hash table or dictionary) which stores
                             // a key value pair. Key is string and value is int
@@ -168,7 +168,7 @@ Example to understand maps and actions on the map. Lets take months example wher
 
 #### Example:
 
-```
+```go
 // maps in go
 package main
 
@@ -232,7 +232,7 @@ Person <=| Name (string)
          |   contact email (string)
 ```
 Now Person (struct) stores all data collectively and an object can be created from Person. For example Robert is an employee which can be an instance of this struct.Data can be feeded for Robert by dot notation.
-```
+```go
 var Robert Person
 Robert.Name = Robert
 Robert.Age = 30
@@ -241,7 +241,7 @@ Robert.ContactNo = 1232341313
 Robert.ContactEmail = email@mail.com
 ```
 #### Example:
-```
+```go
 // Using struct
 package main
 
@@ -293,7 +293,7 @@ func main() {
 ## Working With JSON
 
 Well this is not a part of data structure. JSON (java script object notation) is a known data format as shown below.
-```
+```go
 {
 	"key": "value",
 	"key": "value"
@@ -310,7 +310,7 @@ Example:
 
 Goal is to provide a data of book in json format. Books data contains, book name, author name, book id, release date. since this data is in different format to we need to use struct.
 
-```
+```go
 // converting data into json format
 
 package main
@@ -387,7 +387,7 @@ func main() {
 If you are thinking to write custom ansible module in go, then core ansible always takes response in json format.That being said, your go's output must be converted into json format. Here `func marshal()` can be used.
 
 > golang is highly documented, go doc command is useful in every step. For example, `go doc json marshl` gived below documentation.  
-```
+```bash
 mdhoke＠dmilind.github.io[master !] ➤ go doc json Marshal
 package json // import "encoding/json"
 func Marshal(v interface{}) ([]byte, error)
@@ -403,7 +403,7 @@ func Marshal(v interface{}) ([]byte, error)
 #### Converting JSON into Struct: unmarshal
 
 `func unmarshal()` is used to convert json formatted data into struct data structure.
->```
+>```bash
 mdhoke＠dmilind.github.io[master !] ➤ go doc json Unmarshal
 package json // import "encoding/json"
 func Unmarshal(data []byte, v interface{}) error
@@ -413,7 +413,7 @@ func Unmarshal(data []byte, v interface{}) error
 ```
 
 Example:
-```
+```go
 // converting json into struct
 // using func Unmarshal(data []byte, v interface{}) error
 /*
@@ -455,3 +455,6 @@ func main() {
 }
 ```
 <a href='https://play.golang.org/p/VXzHUOZpLgr'><b>Converting Json Into Struct:Go Playground</b></a>
+
+------------
+<div style="text-align: right"><b> lets continue in next blog  . . . </b> </div>
