@@ -1,5 +1,5 @@
 ---
-title: "Learning Golang: Milestone 2"
+title: "Learning Golang: Milestone 3"
 layout: post
 date: 2019-07-06
 image: /assets/images/markdown.jpg
