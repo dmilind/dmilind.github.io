@@ -157,3 +157,46 @@ func main() {
 }
 ```
 <a href='https://github.com/dmilind/golang/blob/master/codingFun/codefun01.go'><b>Find GitHub Code Here</b></a>
+
+## Veriadic Functions
+Usually function takes arguments and those arguments has to be declared, for that we should know how many arguments are being passed to a function. But what if we dont know the number of arguments beforehand or we are passing multiple arguments every time to the program. Here function will panic. To handle this behavior, veriadic function can be used.
+
+In veriadic function number of arguments of same type can be passed.
+
+Syntax:
+```go
+func VeriadicFunction (num ...int) int {
+  .. function body   
+}
+```
+In above function ```...``` is an ellipses which tells the function that number of arguments of ```int``` type can be passed and all those can be referred by ```num``` variable.
+Lets take an example:
+```go
+package main
+
+import (
+  "fmt"
+
+)
+// function Add takes all passed arguments and calculates the addition of all of them. Also return the result
+func Add(num ...int) int {
+  Sum := 0
+  for _, val := range num {
+    Sum += val
+  }
+  return Sum
+}
+
+func main () {
+  result := Add(1,1,2,2,3,4) // You can pass any num of arguments
+  fmt.Println("Total =", result)    
+}  
+
+// output :
+Total = 13
+```
+<a href='https://play.golang.org/p/K_Cc1lzoc5S'><b>Veriadic Function: Go Playground </b></a>
+
+## Defer
+
+## Panic And Recover
