@@ -9,7 +9,7 @@ layout: page
 clean software promotion from development to production environment, debugging issue with software engineering approach. Mostly, I am working on devops technologies with the help of modern software engineering approach. I love doing what I am doing right now, I always focus on software engineering because I feel designing new system is my passion.</p>
 
 <h2>Skills</h2>
-<h3> Below are enlisted technologies that I am working on.
+<h3> Below are enlisted technologies that I am working on </h3>
 <dl>
 	<dt> Containerzation: </dt>
 	<dd> Docker </dd>
