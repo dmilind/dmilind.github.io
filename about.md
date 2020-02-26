@@ -4,26 +4,37 @@ layout: page
 ---
 ![Profile Image]({{ site.url }}/{{ site.about-picture }})
 
-<p> Hi,Welcome to my page.Currently,I am working as Platform DevOps Engineer in bay area. In my work, I am responsible for provisioning automation, designing workflow for 
-clean software promotion from development to production environment, debugging issue with software engineering approach. I love doing what I am doing right now, I always focus on software engineering because I feel designing new system is my passion.</p>
+<p> <font size="6"> Hello ✋🏻 </font> </p>
+<p>Currently, I am working as Sr. Software Engineer in bay area. As an asset to company, I am responsible for automation, provisioning, designing workflow for 
+clean software promotion from development to production environment, debugging issue with software engineering approach. Mostly, I am working on devops technologies with the help of modern software engineering approach. I love doing what I am doing right now, I always focus on software engineering because I feel designing new system is my passion.</p>
 
 <h2>Skills</h2>
+<h3> Below are enlisted technologies that I am working on.
+<dl>
+	<dt> Containerzation: </dt>
+	<dd> Docker </dd>
+	<dt> Container Orchestration:  </dt>
+	<dd> Kubernetes, Docker Swarm, Mesos </dd>
+	<dt> Programming: </dt>
+	<dd> Languages: Golang, Python </dd>
+	<dt> Configuration Management: </dt>
+	<dd> Ansible, Puppet, Chef </dd>
+	<dt> Version Control System: </dt>
+	<dd> Git, GitHub, GitLab, BitBucket </dd>
+	<dt> CICD: </dt>
+	<dd> Jenkins, Bamboo, Rundeck </dd>
+	<dt> Operating System: </dt>
+	<dd> CentOs, Ubuntu, Mint </dd>
+	<dt> IaaS: </dt>
+	<dd> Terraform </dd>
+	<dt> Portable VM Provisioners: </dt>
+	<dd> Vagrant </dd>
+	<dt> Machine Image Building:</dt>
+	<dd> Packer </dd>
+	<dt> Deep Analytical Thinking </dt>
+</dl>
 
-<ul class="skill-list">
-	<li> Containerzation Technology [ Docker ] </li>
-	<li> Container Orchestration [ Kubernetes, Docker Swarm, Mesos ]  </li>
-	<li> Software Programming [ Golang ] </li>
-	<li> Configuration Management [ Ansible, Puppet ] </li>
-	<li> Version Control [ Git, GitHub, GitLab, BitBucket ] </li>
-	<li> CICD [ Jenkins, Bamboo ] </li>
-	<li> Linux [ CentOs, Ubuntu, Mint ] </li>
-	<li> Infrastructure Management [ Terraform ] </li>
-	<li> Portable Dev Environment [ Vagrant ] </li>
-	<li> Identical Machine Producer [ Packer ] </li>
-	<li> Deep Analytical Thinking </li>
-</ul>
-
-<p> Well that was my professional background. Personally I am chill guy.Actually I love to chat with my friends on diverse topics. I hail from Maharastra, India. I did my basic education 
+<p> Well that was my professional background. Personally I am quite  guy.Actually I love to chat with my friends on diverse topics. I hail from Maharastra, India. I did my basic education 
 and engineering from Amravati University. To be frank I was not a technical student rather medical one, but with designed patterned I entered into computer engineering degree program.
 After my bachelor degree I worked for a some time, then I decided to go for MS program in USA, then journey started in USA. 
 I feel engineering is vast field and you can not be a perfect in that. So I am trying to keep my efforts intact to understand and implement the things wherever I find my interest and passion.

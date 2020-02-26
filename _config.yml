@@ -1,6 +1,6 @@
 # main text of home
 name: Milind Dhoke
-bio: Happy face Engineer by profession, active member of human being society 😉, Know me more from About page.
+bio: Happy face Engineer by profession 😉. Enjoying my work as a software engineer in bay area from few years.  
 
 # twitter summary info
 description: Something about me!
@@ -9,7 +9,7 @@ description: Something about me!
 # better with square images
 external-image: false
 picture: assets/images/profileOne.jpeg
-about-picture: assets/images/about.jpg
+about-picture: assets/images/about-me.jpg
 
 # If you want to include your resume, set to true
 # and specify source (external or local).
@@ -57,7 +57,6 @@ email: milinddhoke.in@gmail.com
 authors:
     Milind D:
         name: Milind Dhoke
-        bio: Happy face Engineer by profession, active member of human being community
         external-image: false
         picture: assets/images/profileOne.jpeg
         twitter: milinddhoke
